@@ -18,9 +18,23 @@ class BowlingGameKataApplicationTests {
 	void shouldScoreEqualsZeroWhenMissAllRounds() {
 		final int expected = 0;
 		final int rounds = 20;
+		final int pins = 0;
 
 		for (int i = 0; i < rounds; i++) {
-			game.roll(0);
+			game.roll(pins);
+		}
+		int actual = game.score();
+		Assertions.assertEquals(expected, actual);
+	}
+
+	@Test
+	void shouldScoreEqualsThreeHundredWhenHitAllPinsAllRounds() {
+		final int expected = 300;
+		final int rounds = 20;
+		final int pins = 10;
+
+		for (int i = 0; i < rounds; i++) {
+			game.roll(pins);
 		}
 		int actual = game.score();
 		Assertions.assertEquals(expected, actual);
