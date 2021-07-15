@@ -2,18 +2,20 @@ package pl.graczykmateusz.BowlingGameKata;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 public class Game implements IGame {
     int round = 1;
-    final int rollPerRound = 2;
+    int roll = 1;
+    final int rollLimitPerRound = 2;
 
     List<List<Integer>> scorePerFrames = new ArrayList<>();
     List<Integer> scorePerFrame = new ArrayList<>();
+    List<Integer> temp = new ArrayList<>();
 
     final int strike = 10;
     final int spare = 10;
+
+    boolean wasStrike = false;
 
     boolean isStrike = false;
     boolean isSpare = false;
@@ -21,11 +23,12 @@ public class Game implements IGame {
     @Override
     public void roll(int pins) {
         scorePerFrame.add(pins);
-        if (round % rollPerRound == 0) {
-            scorePerFrames.add(new ArrayList<>(scorePerFrame));
-            scorePerFrame.clear();
+        if (roll % rollLimitPerRound == 0) {
+            updateScoreFrames();
+            resetRollCount();
+            nextRound();
         }
-        nextRound();
+        nextRoll();
     }
 
     @Override
@@ -40,15 +43,27 @@ public class Game implements IGame {
         round++;
     }
 
-    private boolean checkStrike(int pins) {
-        if (pins == strike) {
-            return true;
-        }
-        return false;
+    private void nextRoll() {
+        roll++;
     }
 
-    private void strike(int pins) {
-//        temp.add(pins);
-//        nextRound();
+    private void resetRollCount() {
+        roll = 1;
+    }
+
+    private void updateScoreFrames() {
+        scorePerFrames.add(new ArrayList<>(scorePerFrame));
+        scorePerFrame.clear();
+    }
+
+    private void strike() {
+//        if (round != 1) {
+//            scorePerFrame.add(strike);
+//        }
+//        scorePerFrames.add(new ArrayList<>(scorePerFrame));
+    }
+
+    private void spare() {
+
     }
 }
