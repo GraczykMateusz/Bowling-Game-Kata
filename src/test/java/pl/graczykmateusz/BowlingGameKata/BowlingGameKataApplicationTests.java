@@ -8,6 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 class BowlingGameKataApplicationTests {
 	Game game;
+	final int rounds = 20;
 
 	@BeforeEach
 	void setup() {
@@ -17,7 +18,6 @@ class BowlingGameKataApplicationTests {
 	@Test
 	void shouldScoreEqualsZeroWhenMissAllRounds() {
 		final int expected = 0;
-		final int rounds = 20;
 		final int pins = 0;
 
 		for (int i = 0; i < rounds; i++) {
@@ -28,10 +28,21 @@ class BowlingGameKataApplicationTests {
 	}
 
 	@Test
-	void shouldScoreEqualsThreeHundredWhenHitAllPinsAllRounds() {
+	void shouldScoreEqualsThreeHundredWhenRolledAllPinsAllRounds() {
 		final int expected = 300;
-		final int rounds = 20;
 		final int pins = 10;
+
+		for (int i = 0; i < rounds; i++) {
+			game.roll(pins);
+		}
+		int actual = game.score();
+		Assertions.assertEquals(expected, actual);
+	}
+
+	@Test
+	void shouldScoreEqualsSumOfPinsWhenNoRolledAnyBonusPerRound() {
+		final int expected = 40;
+		final int pins = 2;
 
 		for (int i = 0; i < rounds; i++) {
 			game.roll(pins);
