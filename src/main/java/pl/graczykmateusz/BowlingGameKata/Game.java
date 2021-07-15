@@ -2,6 +2,7 @@ package pl.graczykmateusz.BowlingGameKata;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class Game implements IGame {
@@ -20,9 +21,8 @@ public class Game implements IGame {
     @Override
     public void roll(int pins) {
         scorePerFrame.add(pins);
-
         if (round % rollPerRound == 0) {
-            scorePerFrames.add(scorePerFrame.stream().collect(Collectors.toList()));
+            scorePerFrames.add(new ArrayList<>(scorePerFrame));
             scorePerFrame.clear();
         }
         nextRound();
@@ -33,7 +33,7 @@ public class Game implements IGame {
         return scorePerFrames.stream()
                 .flatMap(List::stream)
                 .reduce(Integer::sum)
-                .get();
+                .orElse(-1);
     }
 
     private void nextRound() {
