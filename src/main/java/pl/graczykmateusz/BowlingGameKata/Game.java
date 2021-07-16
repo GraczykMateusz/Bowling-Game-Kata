@@ -19,7 +19,7 @@ public class Game implements IGame {
             } else if (checkIfIsSpare()) {
 
             } else {
-                // score += pins;
+                score += pins;
             }
         } else {
             throw new IllegalStateException("Cannot roll when the game is over!");
