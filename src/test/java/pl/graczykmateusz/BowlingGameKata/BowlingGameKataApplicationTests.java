@@ -24,7 +24,10 @@ class BowlingGameKataApplicationTests {
 
 	@Test
 	void shouldThrowExceptionWhenPinsAreGreaterThanTen() {
-
+		String expectedDescription = "Pins cannot be greater then 10";
+		Assertions.assertThatIllegalArgumentException()
+				.describedAs(expectedDescription)
+				.isThrownBy(() -> game.roll(11));
 	}
 
 	@Test

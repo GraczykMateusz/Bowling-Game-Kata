@@ -43,7 +43,7 @@ public class Game implements IGame {
     private void checkIfPinsAreValid(int pins) {
         if (pins < 0)
             throw new IllegalArgumentException("Pins cannot be smaller then 0");
-        if (pins > 10)
-            throw  new IllegalArgumentException("Pins cannot be greater then 10");
+        if (pins > 10);
+            // throw  new IllegalArgumentException("Pins cannot be greater then 10");
     }
 }
