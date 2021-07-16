@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Game implements IGame {
-    boolean isGameOver;
+    boolean isGameOver = false;
+    int score = 0;
 
     List<List<Integer>> scorePerFrames = new ArrayList<>();
     List<Integer> scores = new ArrayList<>();
@@ -18,18 +19,16 @@ public class Game implements IGame {
             } else if (checkIfIsSpare()) {
 
             } else {
-
+                // score += pins;
             }
+        } else {
+            throw new IllegalStateException("Cannot roll when the game is over!");
         }
-        throw new IllegalStateException("Cannot roll when the game is over!");
     }
 
     @Override
     public int score() {
-        return scorePerFrames.stream()
-                .flatMap(List::stream)
-                .reduce(Integer::sum)
-                .orElse(-1);
+        return score;
     }
 
     private boolean checkIfIsStrike() {
@@ -43,7 +42,7 @@ public class Game implements IGame {
     private void checkIfPinsAreValid(int pins) {
         if (pins < 0)
             throw new IllegalArgumentException("Pins cannot be smaller then 0");
-        if (pins > 10);
-            // throw  new IllegalArgumentException("Pins cannot be greater then 10");
+        if (pins > 10)
+            throw  new IllegalArgumentException("Pins cannot be greater then 10");
     }
 }

@@ -44,8 +44,7 @@ class BowlingGameKataApplicationTests {
 		for (int i = 0; i < rollsCount ; i++) {
 			game.roll(pins);
 		}
-		int actual = game.score();
-		// Assertions.assertEquals(expected, actual);
+		Assertions.assertThat(game.score()).isEqualTo(expected);
 	}
 
 	@Test
